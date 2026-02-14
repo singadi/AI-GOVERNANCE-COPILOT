@@ -1,0 +1,18 @@
+version: 2
+
+seeds:
+  - name: customers
+    config:
+      column_types:
+        customer_id: integer
+        email: text
+        phone: text
+        region: text
+
+  - name: orders
+    config:
+      column_types:
+        order_id: integer
+        customer_id: integer
+        amount: numeric(12,2)
+        order_ts: date

@@ -1,0 +1,28 @@
+name: 'gov_copilot_dbt'
+version: '1.0.0'
+profile: 'gov_copilot_dbt'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  gov_copilot_dbt:
+    +materialized: table
+    silver:
+      +schema: silver
+    gold:
+      +schema: gold
+    gold_restricted:
+      +schema: gold_restricted
+
+seeds:
+  gov_copilot_dbt:
+    +schema: raw

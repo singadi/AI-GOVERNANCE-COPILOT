@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: silver_customers
+    description: Cleans customer contact data from raw seeds.
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+
+  - name: gold_orders_fact
+    description: Self-service gold fact table for order analytics without direct PII.
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: gold_restricted_customer_contacts
+    description: Restricted gold table containing customer contact fields for approved workflows.
+    columns:
+      - name: customer_id
+        tests:
+          - not_null

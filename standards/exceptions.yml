@@ -1,0 +1,5 @@
+exceptions:
+  - model: gold_restricted_customer_contacts
+    approver: data_owner_commerce
+    reason: "Operational reporting needs customer contact fields"
+    expiry: "2026-06-30"

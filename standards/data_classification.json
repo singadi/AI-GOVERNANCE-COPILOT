@@ -1,0 +1,17 @@
+{
+  "pii_keywords": [
+    "email",
+    "phone",
+    "ssn",
+    "social_security",
+    "dob",
+    "birth",
+    "tax_id",
+    "passport",
+    "address",
+    "first_name",
+    "last_name",
+    "full_name",
+    "name"
+  ]
+}
