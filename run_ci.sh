@@ -2,6 +2,8 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PG_USER="${POSTGRES_USER:-postgres}"
+PG_DB="${POSTGRES_DB:-governance}"
 
 if command -v dbt >/dev/null 2>&1; then
   DBT_BIN="dbt"
@@ -26,7 +28,7 @@ rm -f "$ROOT_DIR/artifacts/findings.json" "$ROOT_DIR/artifacts/reasons.json" "$R
 
 echo "== wait for postgres =="
 for i in {1..30}; do
-  if docker exec -i govcopilot-postgres pg_isready -U postgres -d governance >/dev/null 2>&1; then
+  if docker exec -i govcopilot-postgres pg_isready -U "$PG_USER" -d "$PG_DB" >/dev/null 2>&1; then
     echo "Postgres is ready"
     break
   fi

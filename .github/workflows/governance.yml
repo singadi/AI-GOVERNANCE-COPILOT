@@ -7,6 +7,11 @@ on:
 jobs:
   governance:
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: governance
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_PORT: 5432
 
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +31,10 @@ jobs:
       - name: Write dbt profile
         run: |
           mkdir -p ~/.dbt
+          if [ -z "${POSTGRES_PASSWORD}" ]; then
+            echo "Missing required GitHub secret: POSTGRES_PASSWORD"
+            exit 1
+          fi
           cat > ~/.dbt/profiles.yml << 'YAML'
           gov_copilot_dbt:
             target: dev
@@ -33,10 +42,10 @@ jobs:
               dev:
                 type: postgres
                 host: localhost
-                user: postgres
-                password: postgres
-                port: 5432
-                dbname: governance
+                user: "{{ env_var('POSTGRES_USER') }}"
+                password: "{{ env_var('POSTGRES_PASSWORD') }}"
+                port: "{{ env_var('POSTGRES_PORT') | int }}"
+                dbname: "{{ env_var('POSTGRES_DB') }}"
                 schema: public
                 threads: 1
           YAML

@@ -50,13 +50,18 @@ More details: `docs/ARCHITECTURE.md`
 
 ## Security note
 
-This repository uses demo/local credentials (for example `postgres/postgres`) for the local Postgres container and CI sample setup. These are intentionally non-production values for a synthetic-data project. Do not reuse these credentials in real environments.
+This repository uses local/demo credentials via environment variables. Do not reuse these values in real environments.
+
+- Local Docker credentials come from `.env` (`POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, `POSTGRES_PORT`).
+- CI reads DB password from GitHub Actions secret `POSTGRES_PASSWORD`.
+- Postgres is bound to `127.0.0.1` by default to reduce exposure.
 
 ## Quick start
 
 From repo root:
 
 ```bash
+cp .env.example .env
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
@@ -117,6 +122,7 @@ GitHub Actions workflow: `.github/workflows/governance.yml`
 - Starts Postgres via Docker Compose
 - Runs the same local governance pipeline
 - Uploads governance artifacts
+- Requires repo secret: `POSTGRES_PASSWORD`
 
 ## Additional docs
 
