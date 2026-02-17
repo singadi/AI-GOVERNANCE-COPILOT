@@ -48,6 +48,10 @@ More details: `docs/ARCHITECTURE.md`
 - dbt (`dbt-postgres`) in a virtual environment
 - OPA CLI (`opa version` should work)
 
+## Security note
+
+This repository uses demo/local credentials (for example `postgres/postgres`) for the local Postgres container and CI sample setup. These are intentionally non-production values for a synthetic-data project. Do not reuse these credentials in real environments.
+
 ## Quick start
 
 From repo root:
